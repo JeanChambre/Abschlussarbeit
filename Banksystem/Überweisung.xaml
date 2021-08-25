@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="Banksystem.Überweisung"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Banksystem"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Content="Konto auswählen:" Grid.Row="1" Margin="20,0,0,0" ></Label>
+        <ComboBox Name="Kontoliste" Grid.Row="1" Grid.Column="1" ></ComboBox>
+        <Label Content="Kontostand:" Grid.Row="1" Grid.Column="2"></Label>
+        <Label Name="kontostand" Grid.Row="1" Grid.Column="3"></Label>
+        <Label Content="Betrag" Grid.Row="4" Margin="20,0,0,0" ></Label>
+        <TextBox Name="MoneyAmount" Grid.Row="4" Grid.Column="1" ></TextBox>
+        <Label Content="KontoID Empfänger" Grid.Row="3" Margin="20,0,0,0"></Label>
+        <TextBox Name="KontoIDTextbox" Grid.Row="3" Grid.Column="1"></TextBox>
+        
+
+        <Label Content="Kommentar" Grid.Row="2"  Margin="20,0,0,0"></Label>
+        <TextBox Name="CommentTextbox" Grid.Row="2" Grid.Column="1" ></TextBox>
+        <Button Grid.Row="4" Grid.Column="2" Content="Überweisung" Click="GeldÜberweisen"   Margin="20,0,20,0"></Button>
+        <Button Grid.Row="4" Grid.Column="3" Content="Zurück" Click="Zurück" Margin="20,0,20,0"></Button>
+    </Grid>
+</UserControl>

@@ -1,0 +1,20 @@
+﻿Banksystem
+
+
+winexe
+C#
+.cs
+C:\Users\Max\Desktop\Abgabe hausarbeit jan zimmer\Banksystem\Banksystem\obj\Debug\
+Banksystem
+none
+false
+DEBUG;TRACE
+C:\Users\Max\Desktop\Abgabe hausarbeit jan zimmer\Banksystem\Banksystem\App.xaml
+121219388502
+21750853300
+241192139768
+18-2043705957
+BenutzerDatenÄndern.xaml;BenutzerHinzufügen.xaml;GeldAbheben.xaml;GeldEinzahlen.xaml;Hauptfenster.xaml;HauptfensterAdmin.xaml;KontoHinzufügen.xaml;KontoLöschen.xaml;Kontostand.xaml;LoginWindow.xaml;MainWindow.xaml;Überweisung.xaml;
+
+True
+

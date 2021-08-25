@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BankModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Konto">
+    <Key>
+      <PropertyRef Name="KontoID" />
+    </Key>
+    <Property Name="KontoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="Kontostand" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="Konto1" Relationship="Self.FK_Konto_Konto" FromRole="Konto" ToRole="Konto1" />
+    <NavigationProperty Name="Konto2" Relationship="Self.FK_Konto_Konto" FromRole="Konto1" ToRole="Konto" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Konto_Users" FromRole="Konto" ToRole="Users" />
+    <NavigationProperty Name="Transaktion" Relationship="Self.FK_Transaktion_Konto" FromRole="Konto" ToRole="Transaktion" />
+  </EntityType>
+  <EntityType Name="Login">
+    <Key>
+      <PropertyRef Name="LoginID" />
+    </Key>
+    <Property Name="LoginID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="isAdmin" Type="Byte" Nullable="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="Password_Hash" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Salt" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Login1" Relationship="Self.FK_Login_Login" FromRole="Login" ToRole="Login1" />
+    <NavigationProperty Name="Login2" Relationship="Self.FK_Login_Login" FromRole="Login1" ToRole="Login" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Login_Users" FromRole="Login" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Transaktion">
+    <Key>
+      <PropertyRef Name="TransaktionID" />
+    </Key>
+    <Property Name="TransaktionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="KontoID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Konto" Relationship="Self.FK_Transaktion_Konto" FromRole="Transaktion" ToRole="Konto" />
+    <NavigationProperty Name="Transaktion1" Relationship="Self.FK_Transaktion_Transaktion" FromRole="Transaktion" ToRole="Transaktion1" />
+    <NavigationProperty Name="Transaktion2" Relationship="Self.FK_Transaktion_Transaktion" FromRole="Transaktion1" ToRole="Transaktion" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Konto" Relationship="Self.FK_Konto_Users" FromRole="Users" ToRole="Konto" />
+    <NavigationProperty Name="Login" Relationship="Self.FK_Login_Users" FromRole="Users" ToRole="Login" />
+  </EntityType>
+  <Association Name="FK_Konto_Konto">
+    <End Role="Konto" Type="Self.Konto" Multiplicity="1" />
+    <End Role="Konto1" Type="Self.Konto" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Konto">
+        <PropertyRef Name="KontoID" />
+      </Principal>
+      <Dependent Role="Konto1">
+        <PropertyRef Name="KontoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Konto_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Konto" Type="Self.Konto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Konto">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaktion_Konto">
+    <End Role="Konto" Type="Self.Konto" Multiplicity="1" />
+    <End Role="Transaktion" Type="Self.Transaktion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Konto">
+        <PropertyRef Name="KontoID" />
+      </Principal>
+      <Dependent Role="Transaktion">
+        <PropertyRef Name="KontoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Login_Login">
+    <End Role="Login" Type="Self.Login" Multiplicity="1" />
+    <End Role="Login1" Type="Self.Login" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Login">
+        <PropertyRef Name="LoginID" />
+      </Principal>
+      <Dependent Role="Login1">
+        <PropertyRef Name="LoginID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Login_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Login" Type="Self.Login" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Login">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaktion_Transaktion">
+    <End Role="Transaktion" Type="Self.Transaktion" Multiplicity="1" />
+    <End Role="Transaktion1" Type="Self.Transaktion" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Transaktion">
+        <PropertyRef Name="TransaktionID" />
+      </Principal>
+      <Dependent Role="Transaktion1">
+        <PropertyRef Name="TransaktionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BankEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Konto" EntityType="Self.Konto" />
+    <EntitySet Name="Login" EntityType="Self.Login" />
+    <EntitySet Name="Transaktion" EntityType="Self.Transaktion" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <AssociationSet Name="FK_Konto_Konto" Association="Self.FK_Konto_Konto">
+      <End Role="Konto" EntitySet="Konto" />
+      <End Role="Konto1" EntitySet="Konto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Konto_Users" Association="Self.FK_Konto_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Konto" EntitySet="Konto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaktion_Konto" Association="Self.FK_Transaktion_Konto">
+      <End Role="Konto" EntitySet="Konto" />
+      <End Role="Transaktion" EntitySet="Transaktion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Login_Login" Association="Self.FK_Login_Login">
+      <End Role="Login" EntitySet="Login" />
+      <End Role="Login1" EntitySet="Login" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Login_Users" Association="Self.FK_Login_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Login" EntitySet="Login" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaktion_Transaktion" Association="Self.FK_Transaktion_Transaktion">
+      <End Role="Transaktion" EntitySet="Transaktion" />
+      <End Role="Transaktion1" EntitySet="Transaktion" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
